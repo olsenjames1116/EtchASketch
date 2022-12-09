@@ -39,11 +39,25 @@ function producePrompt(){
 
     button.addEventListener('click', ()=> {
         let userGridSize = prompt('Enter a number from 1-100 to adjust grid size:');
+
+        userGridSize = testUserInput(userGridSize);
     })
 }
 
 //Test that value is a number and is greater than 1 but less than 100
+function testUserInput(userGridSize){
 
+    while(isNaN(userGridSize) || userGridSize>100 || userGridSize<1){
+
+        //Avoid an infinite loop if the user continues to cancel out on the prompt
+        if(userGridSize === null){
+            break;
+        }
+        userGridSize = prompt('Please enter a valid choice (A number from 1-100):');
+    }
+
+    return userGridSize;
+}
 //Continue to prompt the user until a valid choice is given
 
 //Apply the choice to the grid
