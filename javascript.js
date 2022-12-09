@@ -32,8 +32,15 @@ Given your inputs, what are the steps necessary to return the desired output?
 */
 
 //Utilize a button to produce a popup prompt
+producePrompt();
 
-//User must enter a value into the prompt
+function producePrompt(){
+    const button = document.querySelector('button');
+
+    button.addEventListener('click', ()=> {
+        let userGridSize = prompt('Enter a number from 1-100 to adjust grid size:');
+    })
+}
 
 //Test that value is a number and is greater than 1 but less than 100
 
