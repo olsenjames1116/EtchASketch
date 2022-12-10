@@ -72,7 +72,7 @@ function produceGrid(userGridSize=16){
     for(let i=0; i<userGridSize*userGridSize; i++){
         let gridSquare = document.createElement('div');
         gridSquare.classList.add('gridSquare');
-        gridSquare.setAttribute('style', 'background-color: white');
+        gridSquare.setAttribute('style', 'background-color: white; outline: 1px solid black');
         sketchPad.append(gridSquare);
     }
 }
@@ -85,14 +85,12 @@ function emptyElement(){
     }
 }
 
-//Format the divs to be a grid
+//Format the sketchpad to display grid squares and provide borders between items
 function formatSketchPad(userGridSize=16){
-    sketchPad.setAttribute('style', `height: 960px; width: 960px; background-color: black;
-    border: 1px solid black; display: grid; gap: 1px; grid-template-rows: repeat(${userGridSize}, 1fr);
+    sketchPad.setAttribute('style', `height: 960px; width: 960px; outline: 1px solid black; 
+    display: grid; grid-template-rows: repeat(${userGridSize}, 1fr);
     grid-template-columns: repeat(${userGridSize}, 1fr)`);
 }
-
-//Add the grid to the webpage
 
 //Utilize the hover property of the mouse to track movement
 
