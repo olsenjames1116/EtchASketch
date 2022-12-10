@@ -43,10 +43,18 @@ produceGrid();
 addHover();
 
 function formatBody(){
-    let buttonContainer = document.createElement('div');
-    buttonContainer.setAttribute('style', 'height: 200px; display: flex; align-items: center; justify-content: center');
+    const header = document.createElement('div.header');
+    header.setAttribute('style', 'height: 200px');
+    body.appendChild(header);
+
+    const midContainer = document.createElement('div.midContainer');
+    midContainer.setAttribute('style', 'width: 100%; display: flex; justify-content: center; gap: 50px');
+    const buttonContainer = document.createElement('div.buttonContainer');
+    buttonContainer.setAttribute('style', 'display: flex; align-items: center; justify-content: center');
     buttonContainer.appendChild(button);
-    body.insertBefore(buttonContainer, sketchPad);
+    midContainer.appendChild(buttonContainer);
+    midContainer.appendChild(sketchPad);
+    body.appendChild(midContainer);
 
     button.setAttribute('style', 'height: 25px; width: 100px');
 
