@@ -101,7 +101,7 @@ function emptyElement(){
 
 //Format the sketchpad to display grid squares and provide borders between items
 function formatSketchPad(userGridSize=16){
-    sketchPad.setAttribute('style', `height: 960px; width: 960px; outline: 1px solid black; 
+    sketchPad.setAttribute('style', `height: 550px; width: 550px; outline: 1px solid black; 
     display: grid; grid-template-rows: repeat(${userGridSize}, 1fr);
     grid-template-columns: repeat(${userGridSize}, 1fr)`);
 }
