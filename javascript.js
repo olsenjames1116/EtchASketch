@@ -33,6 +33,8 @@ Given your inputs, what are the steps necessary to return the desired output?
 
 //Utilize a click event to call another function that will
     //set the grid size to the user's liking
+let sketchPad = document.querySelector('div.sketchPad');
+
 producePrompt();
 produceGrid();
 
@@ -61,28 +63,34 @@ function getUserInput(){
 }
 
 //Apply the user's choice to create that many grid squares for the sketch pad
+    //and apply them to the webpage
 function produceGrid(userGridSize=16){
-    let sketchPad = document.querySelector('div.sketchPad');
+    emptyElement();
 
-    emptyElement(sketchPad);
+    formatSketchPad(userGridSize);
 
-    for(let i=0; i<userGridSize; i++){
-    let gridSquare = document.createElement('div');
-    gridSquare.classList.add('gridSquare');
-    gridSquare.textContent = `${i}: grid square!`;
-    sketchPad.append(gridSquare);
+    for(let i=0; i<userGridSize*userGridSize; i++){
+        let gridSquare = document.createElement('div');
+        gridSquare.classList.add('gridSquare');
+        gridSquare.setAttribute('style', 'background-color: white');
+        sketchPad.append(gridSquare);
     }
 }
 
 //Check if there are any elements in the sketch pad already
     //clears them if so
-function emptyElement(sketchPad){
+function emptyElement(){
     while(sketchPad.firstElementChild){
         sketchPad.firstElementChild.remove();
     }
 }
 
 //Format the divs to be a grid
+function formatSketchPad(userGridSize=16){
+    sketchPad.setAttribute('style', `height: 960px; width: 960px; background-color: black;
+    border: 1px solid black; display: grid; gap: 1px; grid-template-rows: repeat(${userGridSize}, 1fr);
+    grid-template-columns: repeat(${userGridSize}, 1fr)`);
+}
 
 //Add the grid to the webpage
 
