@@ -34,14 +34,14 @@ Given your inputs, what are the steps necessary to return the desired output?
 //Utilize a click event to call another function that will
     //set the grid size to the user's liking
 producePrompt();
+produceGrid();
 
 function producePrompt(){
     const button = document.querySelector('button');
 
     button.addEventListener('click', ()=> {
         let userGridSize = getUserInput();
-
-        if(userGridSize===null) userGridSize = 16;
+        produceGrid(userGridSize);
     })
 }
 
@@ -52,17 +52,35 @@ function getUserInput(){
         userGridSize = prompt('Enter a number from 1-100 to adjust grid size:');
 
         if(userGridSize===null){
+            userGridSize = 16;
             break;
         }
     }while(isNaN(userGridSize) || userGridSize>100 || userGridSize<1)
 
     return userGridSize;
 }
-//Continue to prompt the user until a valid choice is given
 
-//Apply the choice to the grid
+//Apply the user's choice to create that many grid squares for the sketch pad
+function produceGrid(userGridSize=16){
+    let sketchPad = document.querySelector('div.sketchPad');
 
-//Create a grid of divs for the sketchpad (default of 16x16)
+    emptyElement(sketchPad);
+
+    for(let i=0; i<userGridSize; i++){
+    let gridSquare = document.createElement('div');
+    gridSquare.classList.add('gridSquare');
+    gridSquare.textContent = `${i}: grid square!`;
+    sketchPad.append(gridSquare);
+    }
+}
+
+//Check if there are any elements in the sketch pad already
+    //clears them if so
+function emptyElement(sketchPad){
+    while(sketchPad.firstElementChild){
+        sketchPad.firstElementChild.remove();
+    }
+}
 
 //Format the divs to be a grid
 
