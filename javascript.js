@@ -34,16 +34,30 @@ Given your inputs, what are the steps necessary to return the desired output?
 //Utilize a click event to call another function that will
     //set the grid size to the user's liking
 let sketchPad = document.querySelector('div.sketchPad');
+const button = document.querySelector('button');
+const body = document.querySelector('body');
 
+formatBody();
 producePrompt();
 produceGrid();
+addHover();
+
+function formatBody(){
+    let buttonContainer = document.createElement('div');
+    buttonContainer.setAttribute('style', 'height: 200px; display: flex; align-items: center; justify-content: center');
+    buttonContainer.appendChild(button);
+    body.insertBefore(buttonContainer, sketchPad);
+
+    button.setAttribute('style', 'height: 25px; width: 100px');
+
+    body.setAttribute('style', 'display: flex; flex-direction: column; align-items: center');
+}
 
 function producePrompt(){
-    const button = document.querySelector('button');
-
     button.addEventListener('click', ()=> {
         let userGridSize = getUserInput();
         produceGrid(userGridSize);
+        addHover();
     })
 }
 
@@ -73,7 +87,7 @@ function produceGrid(userGridSize=16){
         let gridSquare = document.createElement('div');
         gridSquare.classList.add('gridSquare');
         gridSquare.setAttribute('style', 'background-color: white; outline: 1px solid black');
-        sketchPad.append(gridSquare);
+        sketchPad.appendChild(gridSquare);
     }
 }
 
@@ -92,7 +106,14 @@ function formatSketchPad(userGridSize=16){
     grid-template-columns: repeat(${userGridSize}, 1fr)`);
 }
 
-//Utilize the hover property of the mouse to track movement
+//Utilize an event listener to know when a grid square has been hovered over
+    //Change the state of the grid square to track the mouse movement
+function addHover(){
+    let gridSquares = document.querySelectorAll('div.gridSquare');
 
-//If a grid has been hovered over, change it's style to show
-    //a trace of the mouse's path
+    gridSquares.forEach(gridSquare => {
+        gridSquare.addEventListener('mouseover', ()=>{
+            gridSquare.setAttribute('style', 'background-color: black');
+        })
+    })
+}
