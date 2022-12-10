@@ -33,36 +33,46 @@ Given your inputs, what are the steps necessary to return the desired output?
 
 //Utilize a click event to call another function that will
     //set the grid size to the user's liking
-let sketchPad = document.querySelector('div.sketchPad');
-const button = document.querySelector('button');
+const sketchPad = document.querySelector('div.sketchPad');
+const sizeButton = document.querySelector('button.sizeButton');
 const body = document.querySelector('body');
+const clearButton = document.createElement('button');
+clearButton.classList.add('clearButton');
+clearButton.setAttribute('style', 'height: 25px; width: 100px');
+clearButton.textContent = 'Clear';
 
 formatBody();
-producePrompt();
+generateSketchPad();
 produceGrid();
+clearSketchPad();
 addHover();
 
+//Create a series of flex containers to format the body
 function formatBody(){
-    const header = document.createElement('div.header');
+    const header = document.createElement('div');
+    header.classList.add('header');
     header.setAttribute('style', 'height: 200px');
     body.appendChild(header);
 
-    const midContainer = document.createElement('div.midContainer');
+    const midContainer = document.createElement('div');
+    midContainer.classList.add('midContainer');
     midContainer.setAttribute('style', 'width: 100%; display: flex; justify-content: center; gap: 50px');
-    const buttonContainer = document.createElement('div.buttonContainer');
-    buttonContainer.setAttribute('style', 'display: flex; align-items: center; justify-content: center');
-    buttonContainer.appendChild(button);
+    const buttonContainer = document.createElement('div');
+    buttonContainer.classList.add('buttonContainer');
+    buttonContainer.setAttribute('style', 'display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px');
+    buttonContainer.appendChild(sizeButton);
+    buttonContainer.appendChild(clearButton);
     midContainer.appendChild(buttonContainer);
     midContainer.appendChild(sketchPad);
     body.appendChild(midContainer);
 
-    button.setAttribute('style', 'height: 25px; width: 100px');
+    sizeButton.setAttribute('style', 'height: 25px; width: 100px');
 
     body.setAttribute('style', 'display: flex; flex-direction: column; align-items: center');
 }
 
-function producePrompt(){
-    button.addEventListener('click', ()=> {
+function generateSketchPad(){
+    sizeButton.addEventListener('click', ()=> {
         let userGridSize = getUserInput();
         produceGrid(userGridSize);
         addHover();
@@ -99,6 +109,16 @@ function produceGrid(userGridSize=16){
     }
 }
 
+function clearSketchPad(){
+    clearButton.addEventListener('click', ()=>{
+        const gridSquares = document.querySelectorAll('div.gridSquare');
+
+        gridSquares.forEach(gridSquare => {
+            gridSquare.setAttribute('style', 'background-color: white; outline: 1px solid black');
+        })
+    })
+}
+
 //Check if there are any elements in the sketch pad already
     //clears them if so
 function emptyElement(){
@@ -117,7 +137,7 @@ function formatSketchPad(userGridSize=16){
 //Utilize an event listener to know when a grid square has been hovered over
     //Change the state of the grid square to track the mouse movement
 function addHover(){
-    let gridSquares = document.querySelectorAll('div.gridSquare');
+    const gridSquares = document.querySelectorAll('div.gridSquare');
 
     gridSquares.forEach(gridSquare => {
         gridSquare.addEventListener('mouseover', ()=>{
