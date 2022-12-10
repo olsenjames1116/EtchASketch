@@ -31,30 +31,30 @@ Given your inputs, what are the steps necessary to return the desired output?
     and enter a number of cells for the new sketchpad.
 */
 
-//Utilize a button to produce a popup prompt
+//Utilize a click event to call another function that will
+    //set the grid size to the user's liking
 producePrompt();
 
 function producePrompt(){
     const button = document.querySelector('button');
 
     button.addEventListener('click', ()=> {
-        let userGridSize = prompt('Enter a number from 1-100 to adjust grid size:');
+        let userGridSize = getUserInput();
 
-        userGridSize = testUserInput(userGridSize);
+        if(userGridSize===null) userGridSize = 16;
     })
 }
 
-//Test that value is a number and is greater than 1 but less than 100
-function testUserInput(userGridSize){
+//Retrieve the user value and test to make sure it is a valid choice
+function getUserInput(){
 
-    while(isNaN(userGridSize) || userGridSize>100 || userGridSize<1){
+    do{
+        userGridSize = prompt('Enter a number from 1-100 to adjust grid size:');
 
-        //Avoid an infinite loop if the user continues to cancel out on the prompt
-        if(userGridSize === null){
+        if(userGridSize===null){
             break;
         }
-        userGridSize = prompt('Please enter a valid choice (A number from 1-100):');
-    }
+    }while(isNaN(userGridSize) || userGridSize>100 || userGridSize<1)
 
     return userGridSize;
 }
