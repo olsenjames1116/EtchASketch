@@ -35,8 +35,6 @@ const sketchPad = document.querySelector('div.sketchPad');
 const sizeButton = document.querySelector('button.sizeButton');
 const body = document.querySelector('body');
 const clearButton = document.createElement('button');
-clearButton.classList.add('clearButton');
-clearButton.setAttribute('style', 'height: 25px; width: 100px');
 clearButton.textContent = 'Clear';
 let canceledOut = false;
 
@@ -48,26 +46,42 @@ addHover();
 
 //Create a series of flex containers to format the body
 function formatBody(){
+    const footer = document.querySelector('div.footer');
+
+    const link = document.querySelector('a');
+    link.setAttribute('style', 'color: black');
+
     const header = document.createElement('div');
     header.classList.add('header');
-    header.setAttribute('style', 'height: 200px');
-    body.appendChild(header);
+    header.setAttribute('style', `display: flex; justify-content: center; align-items: center; 
+    height: 190px; font-family: "Courier New", monospace; font-size: 80px; color: gold`);
+    header.textContent = 'Etch A Sketch';
+    body.insertBefore(header, footer);
 
     const midContainer = document.createElement('div');
     midContainer.classList.add('midContainer');
-    midContainer.setAttribute('style', 'width: 100%; display: flex; justify-content: center; gap: 50px');
-    const buttonContainer = document.createElement('div');
-    buttonContainer.classList.add('buttonContainer');
-    buttonContainer.setAttribute('style', 'display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px');
-    buttonContainer.appendChild(sizeButton);
-    buttonContainer.appendChild(clearButton);
-    midContainer.appendChild(buttonContainer);
+    midContainer.setAttribute('style', 'width: 100%; display: flex; justify-content: center; gap: 20px');
+
+    const sizeButtonContainer = document.createElement('div');
+    sizeButtonContainer.classList.add('sizeButtonContainer');
+    sizeButtonContainer.setAttribute('style', 'display: flex; align-items: flex-end; justify-content: center; gap: 20px');
+    sizeButtonContainer.appendChild(sizeButton);
+
+    const clearButtonContainer = document.createElement('div');
+    clearButtonContainer.classList.add('clearButtonContainer');
+    clearButtonContainer.setAttribute('style', 'display: flex; align-items: flex-end; justify-content: center; gap: 20px');
+
+    clearButtonContainer.appendChild(clearButton);
+    midContainer.appendChild(sizeButtonContainer);
     midContainer.appendChild(sketchPad);
-    body.appendChild(midContainer);
+    midContainer.appendChild(clearButtonContainer);
+    body.insertBefore(midContainer, footer);
 
-    sizeButton.setAttribute('style', 'height: 25px; width: 100px');
+    sizeButton.setAttribute('style', 'border-radius: 50%; height: 100px; width: 100px');
+    clearButton.classList.add('clearButton');
+    clearButton.setAttribute('style', 'border-radius: 50%; height: 100px; width: 100px');
 
-    body.setAttribute('style', 'display: flex; flex-direction: column; align-items: center');
+    body.setAttribute('style', 'margin: 0px; display: flex; flex-direction: column; align-items: center; background-color: red');
 }
 
 function generateSketchPad(){
@@ -103,7 +117,7 @@ function produceGrid(userGridSize=16){
     for(let i=0; i<userGridSize*userGridSize; i++){
         let gridSquare = document.createElement('div');
         gridSquare.classList.add('gridSquare');
-        gridSquare.setAttribute('style', 'background-color: white; outline: 1px solid black');
+        gridSquare.setAttribute('style', 'background-color: grey; outline: 1px solid black');
         sketchPad.appendChild(gridSquare);
     }
 }
@@ -114,7 +128,7 @@ function clearSketchPad(){
         const gridSquares = document.querySelectorAll('div.gridSquare');
 
         gridSquares.forEach(gridSquare => {
-            gridSquare.setAttribute('style', 'background-color: white; outline: 1px solid black');
+            gridSquare.setAttribute('style', 'background-color: grey; outline: 1px solid black');
         })
     })
 }
