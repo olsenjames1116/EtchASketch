@@ -31,8 +31,6 @@ Given your inputs, what are the steps necessary to return the desired output?
     and enter a number of cells for the new sketchpad.
 */
 
-//Utilize a click event to call another function that will
-    //set the grid size to the user's liking
 const sketchPad = document.querySelector('div.sketchPad');
 const sizeButton = document.querySelector('button.sizeButton');
 const body = document.querySelector('body');
@@ -40,6 +38,7 @@ const clearButton = document.createElement('button');
 clearButton.classList.add('clearButton');
 clearButton.setAttribute('style', 'height: 25px; width: 100px');
 clearButton.textContent = 'Clear';
+let canceledOut = false;
 
 formatBody();
 generateSketchPad();
@@ -109,6 +108,7 @@ function produceGrid(userGridSize=16){
     }
 }
 
+//Clear out the  sketchpad at the user's request
 function clearSketchPad(){
     clearButton.addEventListener('click', ()=>{
         const gridSquares = document.querySelectorAll('div.gridSquare');
